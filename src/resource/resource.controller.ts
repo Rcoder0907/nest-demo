@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateResourceDto } from './dto/create-resource.dto';
+import { UpdateResourceDto } from './dto/update-resource.dto';
 
 @Controller('resource')
 export class ResourceController {
@@ -26,12 +28,15 @@ export class ResourceController {
   }
 
   @Patch('private/:resourceId')
-  updateResource(@Param('resourceId') resourceId: number, @Body() body) {
+  updateResource(
+    @Param('resourceId') resourceId: number,
+    @Body() updateResourceDto: UpdateResourceDto,
+  ) {
     return 'hello';
   }
 
   @Post('private/:resourceId')
-  createResource(@Body() body) {
+  createResource(@Body() createResourceDto: CreateResourceDto) {
     return 'hello';
   }
 }
