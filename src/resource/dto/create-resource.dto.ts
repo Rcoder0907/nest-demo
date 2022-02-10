@@ -1,9 +1,10 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
+import { ResourceTypes } from '../constants';
 
 export class CreateResourceDto {
-  @IsNumber()
-  readonly id: number;
+  @IsString()
+  readonly resourceId: number;
 
   @IsString()
-  readonly type: string;
+  readonly resourceType: ResourceTypes;
 }
