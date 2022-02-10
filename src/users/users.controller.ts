@@ -1,5 +1,6 @@
 import { Request, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UsersService } from './users.service';
 
 @Controller('user')
@@ -9,15 +10,12 @@ export class UsersController {
   @UseGuards(AuthGuard('local'))
   @Post('login')
   loginUser(@Request() req) {
-    // return this.userService.loginUser(
-    //   loginUserDto.email,
-    //   loginUserDto.password,
-    // );
     return this.userService.login(req.user);
   }
 
-  // @Post('logout')
-  // logoutUser(@Body() body) {
-  //   return body;
-  // }
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  logoutUser() {
+    return 'Logout';
+  }
 }

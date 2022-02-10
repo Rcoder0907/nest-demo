@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
 import { ResourceTypes } from '../constants';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
@@ -21,16 +23,19 @@ export class ResourceController {
     return this.resourceService.getByType(resourceType);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('private/:resourceId')
   getResource(@Param('resourceId') resourceId: number) {
     return this.resourceService.getById(resourceId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('private/:resourceId')
   deleteResource(@Param('resourceId') resourceId: number) {
     return this.resourceService.remove(resourceId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('private/:resourceId')
   updateResource(
     @Param('resourceId') resourceId: number,
@@ -39,6 +44,7 @@ export class ResourceController {
     return this.resourceService.update(resourceId, updateResourceDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('private/:resourceId')
   createResource(@Body() createResourceDto: CreateResourceDto) {
     return this.resourceService.create(createResourceDto);
