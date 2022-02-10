@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ResourceTypes } from '../../constants';
 
 @Entity()
 export class User {
@@ -16,5 +15,5 @@ export class User {
   password: string;
 
   @Column()
-  role: ResourceTypes;
+  role: string;
 }

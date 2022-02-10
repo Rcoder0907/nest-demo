@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Resource {
@@ -8,6 +15,8 @@ export class Resource {
   @Column()
   resourceId: number;
 
+  @JoinTable()
+  // @OneToMany((type) => User)
   @Column()
   userId: number;
 }
