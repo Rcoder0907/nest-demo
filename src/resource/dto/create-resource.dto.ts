@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { ResourceTypes } from '../constants';
+import { ResourceTypes } from '../../constants';
 
 export class CreateResourceDto {
   @IsString()

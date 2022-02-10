@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ResourceTypes } from '../../constants';
 
 @Entity()
-export class Resource {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,5 +10,11 @@ export class Resource {
   name: string;
 
   @Column()
-  resourceType: ResourceTypes;
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  role: ResourceTypes;
 }
