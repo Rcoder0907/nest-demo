@@ -21,16 +21,16 @@ export class ResourceService {
     return this.resourceRepository.find({ resourceType: resourceType });
   }
 
-  async getById(resourceId: number): Promise<Resource> {
-    const resource = await this.resourceRepository.findOne(resourceId);
+  async getById(id: number): Promise<Resource> {
+    const resource = await this.resourceRepository.findOne(id);
     if (!resource) {
-      throw new NotFoundException(`Resource #${resourceId} not found`);
+      throw new NotFoundException(`Resource #${id} not found`);
     }
     return resource;
   }
 
-  async remove(resourceId: number) {
-    const resource = await this.getById(resourceId);
+  async remove(id: number) {
+    const resource = await this.getById(id);
     return this.resourceRepository.remove(resource);
   }
 
@@ -39,13 +39,15 @@ export class ResourceService {
     return this.resourceRepository.save(resource);
   }
 
-  async update(resourceId: number, updateResourceDto: UpdateResourceDto) {
+  async update(id: number, updateResourceDto: UpdateResourceDto) {
+    // const resource = await this.getById(resourceId);
+    // if(updateResourceDto.name) resource.name = updateResourceDto.name;
     const resource = await this.resourceRepository.preload({
-      resourceId,
+      id,
       ...updateResourceDto,
     });
     if (!resource) {
-      throw new NotFoundException(`Resource #${resourceId} not found`);
+      throw new NotFoundException(`Resource #${id} not found`);
     }
     return this.resourceRepository.save(resource);
   }

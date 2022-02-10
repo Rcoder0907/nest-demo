@@ -4,7 +4,10 @@ import { ResourceTypes } from '../constants';
 @Entity()
 export class Resource {
   @PrimaryGeneratedColumn()
-  resourceId: number;
+  id: number;
+
+  @Column()
+  name: string;
 
   @Column()
   resourceType: ResourceTypes;

@@ -3,7 +3,7 @@ import { ResourceTypes } from '../constants';
 
 export class CreateResourceDto {
   @IsString()
-  readonly resourceId: number;
+  readonly name: string;
 
   @IsString()
   readonly resourceType: ResourceTypes;
