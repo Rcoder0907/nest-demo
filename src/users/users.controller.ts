@@ -13,7 +13,7 @@ export class UsersController {
     //   loginUserDto.email,
     //   loginUserDto.password,
     // );
-    return req.user;
+    return this.userService.login(req.user);
   }
 
   // @Post('logout')

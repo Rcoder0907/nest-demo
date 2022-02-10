@@ -3,3 +3,7 @@ export enum ResourceTypes {
   Public,
   Admin,
 }
+
+export const jwtConstants = {
+  secret: 'RehansSuperSecretKey',
+};
