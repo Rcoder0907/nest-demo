@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
@@ -47,8 +48,15 @@ export class ResourceController {
 
   @UseGuards(JwtAuthGuard)
   @Delete('private/:resourceId')
-  deleteResource(@Param('resourceId') resourceId: number) {
-    return this.resourceService.remove(resourceId);
+  async deleteResource(
+    @Param('resourceId') resourceId: number,
+    @Req() req: any,
+    @Res() res: any,
+  ) {
+    await this.userResourceService.remove(req.user.userId, resourceId);
+    return res
+      .status(HttpStatus.ACCEPTED)
+      .send('The resource has been deleted');
   }
 
   @UseGuards(JwtAuthGuard)
