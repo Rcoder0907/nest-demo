@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateResourceDto } from './dto/create-resource.dto';
@@ -6,11 +6,15 @@ import { UpdateResourceDto } from './dto/update-resource.dto';
 import { Resource } from './entities/resource.entity';
 
 @Injectable()
-export class ResourceService {
+export class ResourceService implements OnModuleInit {
   constructor(
     @InjectRepository(Resource)
     private readonly resourceRepository: Repository<Resource>,
   ) {}
+
+  onModuleInit() {
+    this.seedResources();
+  }
 
   getAll(): Promise<Resource[]> {
     return this.resourceRepository.find();
@@ -65,10 +69,22 @@ export class ResourceService {
         name: '/orders',
         resourceType: 'admin',
       },
+      {
+        name: '/categories',
+        resourceType: 'public',
+      },
+      {
+        name: '/account',
+        resourceType: 'private',
+      },
+      {
+        name: '/payments',
+        resourceType: 'admin',
+      },
     ];
     const existingRowsCount = await this.resourceRepository.count();
     if (existingRowsCount == 0) {
-      console.log('Seeding started for resources', data);
+      console.log('Seeding Resources: Started', data);
       return data.map(async (d) => {
         const resourceDto: CreateResourceDto = new CreateResourceDto(
           d.name,
@@ -77,7 +93,7 @@ export class ResourceService {
         return this.create(resourceDto);
       });
     } else {
-      console.log('Seems data is already present. Skipping seed operation');
+      console.log('Seeding Resources: Skipped. Seems data is already present');
     }
   }
 }
