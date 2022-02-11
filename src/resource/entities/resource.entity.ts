@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ResourceTypes } from '../../constants';
 
 @Entity()
 export class Resource {
@@ -10,5 +9,5 @@ export class Resource {
   name: string;
 
   @Column()
-  resourceType: ResourceTypes;
+  resourceType: string;
 }

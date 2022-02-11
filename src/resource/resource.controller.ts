@@ -9,7 +9,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
-import { ResourceTypes } from '../constants';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ResourceService } from './resource.service';
@@ -19,7 +18,7 @@ export class ResourceController {
   constructor(private readonly resourceService: ResourceService) {}
 
   @Get(':level/all')
-  getResourceByType(@Param('level') resourceType: ResourceTypes) {
+  getResourceByType(@Param('level') resourceType: string) {
     return this.resourceService.getByType(resourceType);
   }
 

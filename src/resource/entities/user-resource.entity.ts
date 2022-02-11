@@ -15,7 +15,7 @@ export class Resource {
   @Column()
   resourceId: number;
 
-  @JoinTable()
+  // @JoinTable()
   // @OneToMany((type) => User)
   @Column()
   userId: number;
