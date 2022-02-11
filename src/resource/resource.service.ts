@@ -50,4 +50,34 @@ export class ResourceService {
     }
     return this.resourceRepository.save(resource);
   }
+
+  async seedResources() {
+    const data = [
+      {
+        name: '/products',
+        resourceType: 'public',
+      },
+      {
+        name: '/profile',
+        resourceType: 'private',
+      },
+      {
+        name: '/orders',
+        resourceType: 'admin',
+      },
+    ];
+    const existingRowsCount = await this.resourceRepository.count();
+    if (existingRowsCount == 0) {
+      console.log('Seeding started for resources', data);
+      return data.map(async (d) => {
+        const resourceDto: CreateResourceDto = new CreateResourceDto(
+          d.name,
+          d.resourceType,
+        );
+        return this.create(resourceDto);
+      });
+    } else {
+      console.log('Seems data is already present. Skipping seed operation');
+    }
+  }
 }
