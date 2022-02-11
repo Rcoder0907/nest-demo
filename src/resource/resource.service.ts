@@ -20,9 +20,9 @@ export class ResourceService implements OnModuleInit {
     return this.resourceRepository.find();
   }
 
-  getByType(resourceType: [string]): Promise<Resource[]> {
+  getByType(resourceType: string): Promise<Resource[]> {
     return this.resourceRepository.find({
-      resourceType: In(resourceType),
+      where: { resourceType },
     });
   }
 

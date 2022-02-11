@@ -13,8 +13,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
-import { UserDto } from 'src/users/dto/user.dto';
-import { CreateResourceDto } from './dto/create-resource.dto';
+import { Roles } from 'src/users/roles/roles.decorator';
+import { Role } from 'src/users/roles/roles.enum';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ResourceService } from './resource.service';
 import { UserResourceService } from './user-resource.service';
@@ -28,20 +28,21 @@ export class ResourceController {
 
   @Get('public/all')
   getPublicResource() {
-    return this.resourceService.getByType(['public']);
+    return this.resourceService.getByType('public');
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Get('onlyadmin/all')
   getAdminResource() {
-    // return this.resourceService.getByType([`private`, 'admin']);
+    return this.resourceService.getByType('admin');
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('private/:resourceId')
   getResource(@Param('resourceId') resourceId: string) {
     if (resourceId === `all`) {
-      return this.resourceService.getByType([`private`]);
+      return this.resourceService.getByType(`private`);
     }
     return this.resourceService.getById(+resourceId);
   }
