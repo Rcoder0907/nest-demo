@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { Resource } from './entities/resource.entity';
@@ -20,8 +20,10 @@ export class ResourceService implements OnModuleInit {
     return this.resourceRepository.find();
   }
 
-  getByType(resourceType: string): Promise<Resource[]> {
-    return this.resourceRepository.find();
+  getByType(resourceType: [string]): Promise<Resource[]> {
+    return this.resourceRepository.find({
+      resourceType: In(resourceType),
+    });
   }
 
   async getById(id: number): Promise<Resource> {
