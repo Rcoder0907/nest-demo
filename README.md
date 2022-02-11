@@ -22,6 +22,7 @@ Ensure you have docker installed. The database postgres is installed using `dock
 - Visit the root directory of project
 - `docker-compose -d up` to start postgres in a docker container
 - If you don't want to use docker based database then go to .env file and update the credential of database server of your own
+- .env file is checked in to make it simple for reviewer to run the code. In real project .env will always be ignored
 
 
 
@@ -45,8 +46,3 @@ For simplicity the test part has not been taken care in this task
 ## Endpoints
 Api documents has been maintained over Postman and the same can be accessed via this url
 https://documenter.getpostman.com/view/12590258/UVeMJiuY
-
-<iframe
-  src="https://documenter.getpostman.com/view/12590258/UVeMJiuY"
-  style="width:100%; height:1800px;"
-></iframe>
